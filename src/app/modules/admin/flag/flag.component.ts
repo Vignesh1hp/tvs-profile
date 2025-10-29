@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { FlagService } from '@app/core/services/flag/flag.service';
 import { DashboardCard } from '@app/interface/DashbordCard';
 import { DropdownOption } from '@app/interface/DropdownOption';
@@ -104,16 +104,21 @@ export class FlagComponent {
   validateDescription(): boolean {
     const trimmed = this.description.trim();
     if (!trimmed) {
-      this.descriptionError =
-        'Flag description is required and must be between 2 and 250 characters.';
+      this.descriptionError = 'Flag description is required.';
       return false;
     }
-    if (trimmed.length < 2 || trimmed.length > 250) {
-      this.descriptionError =
-        'Flag description is required and must be between 2 and 250 characters.';
+
+    if (trimmed.length < 5) {
+      this.descriptionError = 'Minimum 5 characters required.';
       return false;
     }
-    this.descriptionError = null;
+
+    if (trimmed.length > 250) {
+      this.descriptionError = 'Maximum 250 characters allowed.';
+      return false;
+    }
+
+    this.descriptionError = '';
     return true;
   }
 
@@ -141,9 +146,18 @@ export class FlagComponent {
     return true;
   }
 
+  isInvalid(control: NgModel): boolean {
+    return !!control?.invalid && !!(control?.touched || control?.dirty);
+  }
+
   // ---- Event handlers ---- //
   onInputChange(value: string) {
     this.description = value;
+    this.validateDescription();
+  }
+
+  onDescriptionBlur(): void {
+    // Validate when user leaves the field (blur event)
     this.validateDescription();
   }
 

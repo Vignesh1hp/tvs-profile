@@ -76,13 +76,13 @@
           (valueChange)="onInputChange($event)"
           maxlength="250"
           name="description"
+          (blur)="onDescriptionBlur()"
         >
         </tvsm-textarea>
         @if (descriptionError) {
           <div class="error-text">{{ descriptionError }}</div>
         }
       </div>
-
       <div>
         <div class="container my-3">
           <div class="row g-3">
@@ -90,7 +90,6 @@
             <div class="col-12 col-md-4 px-0">
               <div class="custom-datefield-wrapper">
                 <label for="dateInput1" class="flag-label"> Due Date </label>
-
                 <!-- Input + icon wrapper -->
                 <tvsm-datefield
                   #tvsmTextArea
@@ -109,7 +108,6 @@
                 <div class="error-text">{{ dateError }}</div>
               }
             </div>
-
             <!-- Second column: Dropdown -->
             <div class="col-12 col-md-4 px-0 mx-md-3">
               <label for="dateInput2" class="flag-label"> Send mail to </label>
@@ -134,14 +132,7 @@
       </div>
     </form>
   </div>
-
   <div class="d-flex align-items-center justify-content-center justify-content-sm-end gap-2">
-    <button
-      type="submit"
-      class="btn btn-primary"
-      form="flagForm"
-    >
-      Submit
-    </button>
+    <button type="submit" class="btn btn-primary" form="flagForm">Submit</button>
   </div>
 </tvsm-modal>
