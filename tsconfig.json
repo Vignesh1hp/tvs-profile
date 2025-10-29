@@ -15,11 +15,12 @@
     "target": "ES2022",
     "module": "preserve",
     "baseUrl": "./",
+    "lib": ["ES2022", "DOM"],
     "paths": {
       "@app/*": ["src/app/*"],
       "@interfaces/*": ["src/app/interface/*"],
-      "@components/*": ["src/app/components*"],
-    },
+      "@components/*": ["src/app/components*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
